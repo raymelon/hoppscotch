@@ -178,6 +178,7 @@
           "
           @select="$emit('select', $event)"
           @select-request="$emit('select-request', $event)"
+          @drop-request="$emit('drop-request', $event)"
         />
         <CollectionsGraphqlRequest
           v-for="(request, index) in collection.requests"
@@ -239,10 +240,7 @@ import IconSettings2 from "~icons/lucide/settings-2"
 import { useToast } from "@composables/toast"
 import { useI18n } from "@composables/i18n"
 import { useColorMode } from "@composables/theming"
-import {
-  removeGraphqlCollection,
-  moveGraphqlRequest,
-} from "~/newstore/collections"
+import { removeGraphqlCollection } from "~/newstore/collections"
 import { Picked } from "~/helpers/types/HoppPicked"
 import { useService } from "dioc/vue"
 import { GQLTabService } from "~/services/tab/graphql"
@@ -280,6 +278,14 @@ const emit = defineEmits<{
   ): void
   (e: "edit-collection"): void
   (e: "select-request", i: any): void
+  (
+    e: "drop-request",
+    payload: {
+      folderPath: string
+      requestIndex: string
+      collectionIndex: number | null
+    }
+  ): void
 }>()
 
 // Template refs
@@ -355,6 +361,10 @@ const dropEvent = ({ dataTransfer }: any) => {
   dragging.value = !dragging.value
   const folderPath = dataTransfer.getData("folderPath")
   const requestIndex = dataTransfer.getData("requestIndex")
-  moveGraphqlRequest(folderPath, requestIndex, `${props.collectionIndex}`)
+  emit("drop-request", {
+    folderPath,
+    requestIndex,
+    collectionIndex: props.collectionIndex,
+  })
 }
 </script>
