@@ -159,7 +159,7 @@ import {
   graphqlCollections$,
   addGraphqlFolder,
   saveGraphqlRequestAs,
-  cascaseParentCollectionForHeaderAuth,
+  cascadeParentCollectionForHeaderAuth,
   editGraphqlCollection,
   editGraphqlFolder,
   moveGraphqlRequest,
@@ -341,7 +341,7 @@ const onAddRequest = ({
 
   saveGraphqlRequestAs(path, newRequest)
 
-  const { auth, headers } = cascaseParentCollectionForHeaderAuth(
+  const { auth, headers } = cascadeParentCollectionForHeaderAuth(
     path,
     "graphql"
   )
@@ -463,7 +463,7 @@ const selectRequest = ({
     folderPath: folderPath,
     requestIndex: requestIndex,
   })
-  const { auth, headers } = cascaseParentCollectionForHeaderAuth(
+  const { auth, headers } = cascadeParentCollectionForHeaderAuth(
     folderPath,
     "graphql"
   )
@@ -506,7 +506,7 @@ const dropRequest = ({
   requestIndex: number
   collectionIndex: number
 }) => {
-  const { auth, headers } = cascaseParentCollectionForHeaderAuth(
+  const { auth, headers } = cascadeParentCollectionForHeaderAuth(
     `${collectionIndex}`,
     "graphql"
   )
@@ -559,7 +559,7 @@ const editProperties = ({
   let inheritedProperties = {}
 
   if (parentIndex) {
-    const { auth, headers } = cascaseParentCollectionForHeaderAuth(
+    const { auth, headers } = cascadeParentCollectionForHeaderAuth(
       parentIndex,
       "graphql"
     )
@@ -592,7 +592,7 @@ const setCollectionProperties = (newCollection: {
     editGraphqlFolder(path, collection)
   }
 
-  const { auth, headers } = cascaseParentCollectionForHeaderAuth(
+  const { auth, headers } = cascadeParentCollectionForHeaderAuth(
     path,
     "graphql"
   )
